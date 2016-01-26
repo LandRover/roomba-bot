@@ -14,7 +14,7 @@ class Roomba {
 
 
     bootstrap() {
-        let route = new Router(this.yowsup);
+        let route = new Router(this.yowsup.getAPI());
 
         this.yowsup.initialize(
             config.yowsup.countryCode,
