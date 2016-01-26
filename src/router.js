@@ -51,7 +51,7 @@ class Router {
         switch(triggeredActionInstance.action) {
             case 'SAY':
                 triggeredActionInstance.execute(text => {
-                    this.yowsup.say(to, text);
+                    this.yowsup.send().say(to, text);
                 });
 
                 break;
@@ -59,7 +59,7 @@ class Router {
 
             case 'IMAGE':
                 triggeredActionInstance.execute((path, url) => {
-                    this.yowsup.image(to, path, url);
+                    this.yowsup.send().image(to, path, url);
                 });
 
                 break;
