@@ -122,7 +122,7 @@ class CoCBot {
             return this[this.cocAction](callback);
         }
 
-        callback('404');
+        callback('404 ' + this.cocAction);
     }
 
 
