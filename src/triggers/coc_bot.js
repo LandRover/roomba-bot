@@ -23,7 +23,7 @@ class CoCBot {
     constructor(cocAction) {
         this.action = 'SAY';
         this.type = 'all';
-        this.cocAction = cocAction[0];
+        this.cocAction = cocAction[1];
     }
 
 
