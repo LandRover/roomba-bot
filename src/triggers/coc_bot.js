@@ -67,6 +67,8 @@ class CoCBot {
         let text = MESSAGES.BOT_UNKNOWN_ERR;
 
         this._send('is_started').then(body => {
+            body = this._cleanResponse(body);
+            
             console.log('x'+body+'x');
             console.log(typeof body);
 
@@ -88,6 +90,8 @@ class CoCBot {
         let text = MESSAGES.BOT_UNKNOWN_ERR;
 
         this._send('stop').then(body => {
+            body = this._cleanResponse(body);
+
             if ('true' === body) {
                 text = MESSAGES.BOT_STOPPED;
             } else
@@ -106,6 +110,8 @@ class CoCBot {
         let text = MESSAGES.BOT_UNKNOWN_ERR;
 
         this._send('start').then(body => {
+            body = this._cleanResponse(body);
+
             if ('true' === body) {
                 text = MESSAGES.BOT_STARTED;
             } else
@@ -133,6 +139,13 @@ class CoCBot {
         return rp(APIPath + action);
     }
 
+
+    _cleanResponse(text) {
+        return text
+            .replace('\n', '')
+            .replace('\r', '')
+            .trim();
+    }
 }
 
 module.exports = CoCBot;
