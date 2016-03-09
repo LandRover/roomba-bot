@@ -29,14 +29,14 @@ class CoCBot {
 
     donations(callback) {
         let text = [
-            'Troop/Spell Names. General convenstion is set, The name of the soldier in Hebrew + 9 digit (uppercase). Should be used in the dontation text',
+            'Troop/Spell Names. General convenstion is set, The name of the soldier from the liste below (uppercase). Should be used in the dontation text',
             '',
-            'GOLEM9 - Golem (x3)',
-            'ANAK9 - Giant (x16)',
-            'KOSEM9 - Wizard (x5)',
-            'PAKA9 - PEKKA (x2)',
-            'ADAMA0 - Earthquake (x4)',
-            'TRUFA9 - Hastle (x7)',
+            'GOLEM - Golem (x3)',
+            'ANAK - Giant (x16)',
+            'KOSEM - Wizard (x5)',
+            'PAKA - PEKKA (x2)',
+            'ADAMA - Earthquake (x4)',
+            'TRUFA - Hastle (x7)',
             '',
             'Good luck.'
         ].join('\\n');
