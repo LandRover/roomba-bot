@@ -5,7 +5,8 @@ let Trigger = require('./trigger'),
     PostIL = require('./triggers/postil'),
     URLtoImage = require('./triggers/url_to_image'),
     GoogleImages = require('./triggers/google_images'),
-    PingPong = require('./triggers/ping_pong');
+    PingPong = require('./triggers/ping_pong'),
+    CoCBot = require('./triggers/coc_bot');
 
 class Router {
     constructor(yowsup) {
@@ -22,7 +23,8 @@ class Router {
             new Trigger(/@ping/i, PingPong), // ping pong, check bot up.
             new Trigger(/@i (.*)/i, GoogleImages), // search images.
             new Trigger(/.*([A-Za-z]{2})([0-9]{9})([A-Za-z]{2}).*/i, PostIL), // PostIL checker
-            new Trigger(/(https?:\/\/[^\s]+)/gi, URLtoImage) // image downloader
+            new Trigger(/(https?:\/\/[^\s]+)/gi, URLtoImage), // image downloader
+            new Trigger(/@c (.*)/i, CoCBot) // clash bot
         );
 
         return this;

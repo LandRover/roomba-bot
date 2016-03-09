@@ -15,5 +15,9 @@ module.exports = {
 
     tmp: {
         dir: __dirname + '/../_TMP'
+    },
+    
+    coc: {
+        api: process.env.COCVM
     }
 };
