@@ -9,7 +9,7 @@ let fs = require('fs'),
 
 const MESSAGES = {
     BOT_UNKNOWN_ERR: 'Unknown response. Err: 100',
-    BOT_STARTED: 'Bot Start! Troops and donations are working. Will go to sleep in 15m. Enjoy.',
+    BOT_STARTED: 'Bot Started! Troops and donations are working. Will go to sleep in 15m. Enjoy.',
     BOT_STOPPED: 'Bot Stopped! Going idle.',
     BOT_STOPPED_FAILED: 'Bot failed to stop.',
     BOT_STATUS_UP: 'Bot is running. All good.',
