@@ -67,6 +67,8 @@ class CoCBot {
         let text = MESSAGES.BOT_UNKNOWN_ERR;
 
         this._send('is_started').then(body => {
+            console.log(body);
+
             if ('true' === body) {
                 text = MESSAGES.BOT_STATUS_UP;
             } else
