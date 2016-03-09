@@ -67,10 +67,10 @@ class CoCBot {
         let text = MESSAGES.BOT_UNKNOWN_ERR;
 
         this._send('is_started').then(body => {
-            if (true === body) {
+            if ('true' === body) {
                 text = MESSAGES.BOT_STATUS_UP;
             } else
-            if (false === body) {
+            if ('false' === body) {
                 text = MESSAGES.BOT_STATUS_IDLE;
             }
 
@@ -85,10 +85,10 @@ class CoCBot {
         let text = MESSAGES.BOT_UNKNOWN_ERR;
 
         this._send('stop').then(body => {
-            if (true === body) {
+            if ('true' === body) {
                 text = MESSAGES.BOT_STOPPED;
             } else
-            if (false === body) {
+            if ('false' === body) {
                 text = MESSAGES.BOT_STOPPED_FAILED;
             }
 
@@ -103,10 +103,10 @@ class CoCBot {
         let text = MESSAGES.BOT_UNKNOWN_ERR;
 
         this._send('start').then(body => {
-            if (true === body) {
+            if ('true' === body) {
                 text = MESSAGES.BOT_STARTED;
             } else
-            if (false === body) {
+            if ('false' === body) {
                 text = MESSAGES.BOT_LOADING;
             }
 
