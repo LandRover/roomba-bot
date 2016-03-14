@@ -71,11 +71,6 @@ class CoCBot {
         callback('Checkig status...');
 
         this._send('is_started').then(body => {
-            body = this._cleanResponse(body);
-
-            console.log('x'+body+'x');
-            console.log(typeof body);
-
             if ('true' === body) {
                 text = MESSAGES.BOT_STATUS_UP;
             } else
@@ -95,8 +90,6 @@ class CoCBot {
         callback('Stopping...');
 
         this._send('stop').then(body => {
-            body = this._cleanResponse(body);
-
             if ('true' === body) {
                 text = MESSAGES.BOT_STOPPED;
             } else
@@ -116,8 +109,6 @@ class CoCBot {
         callback('Closing...');
 
         this._send('close').then(body => {
-            body = this._cleanResponse(body);
-
             if ('true' === body) {
                 text = MESSAGES.BOT_CLOSED;
             } else
@@ -137,8 +128,6 @@ class CoCBot {
         callback('Starting...');
 
         this._send('start').then(body => {
-            body = this._cleanResponse(body);
-
             if ('true' === body) {
                 text = MESSAGES.BOT_STARTED;
             } else
@@ -164,14 +153,6 @@ class CoCBot {
 
     _send(action) {
         return rp(APIPath + action);
-    }
-
-
-    _cleanResponse(text) {
-        return text
-            .replace('\n', '')
-            .replace('\r', '')
-            .trim();
     }
 }
 
