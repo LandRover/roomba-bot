@@ -29,14 +29,14 @@ class CoCBot {
 
     donations(callback) {
         let text = [
-            'Troop/Spell Names. General convenstion is set, The name of the soldier from the liste below (uppercase). Should be used in the dontation text',
+            'Troop/Spell Names. General convenstion is set, The name of the soldier/spell in Hebrew + 9 digit from the list below. Should be used in the dontation text',
             '',
-            'GOLEM - Golem (x3)',
-            'ANAK - Giant (x16)',
-            'KOSEM - Wizard (x5)',
-            'PAKA - PEKKA (x2)',
-            'ADAMA - Earthquake (x4)',
-            'TRUFA - Hastle (x7)',
+            'GOLEM9 - Golem (x3)',
+            'ANAK9 - Giant (x16)',
+            'KOSEM9 - Wizard (x5)',
+            'PAKA9 - PEKKA (x2)',
+            'ADAMA9 - Earthquake (x4)',
+            'FAST9 - Hastle (x7)',
             '',
             'Good luck.'
         ].join('\\n');
@@ -52,6 +52,7 @@ class CoCBot {
             'To control me use these commands:',
             'start - starts the bot',
             'stop - stops the bot, idle',
+            'close - closes the bot app',
             'status - will respond the current state',
             'troops - **doesnt work yet.',
             'donations - list of troop keywords',
