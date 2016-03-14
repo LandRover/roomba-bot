@@ -12,6 +12,8 @@ const MESSAGES = {
     BOT_STARTED: 'Bot Started! Troops and donations are working. Will go to sleep in 15m. Enjoy.',
     BOT_STOPPED: 'Bot Stopped! Going idle.',
     BOT_STOPPED_FAILED: 'Bot failed to stop.',
+    BOT_CLOSED: 'Bot Closed! You may start it again',
+    BOT_CLOSED_FAILED: 'Bot failed to close.',
     BOT_STATUS_UP: 'Bot is running. All good.',
     BOT_STATUS_IDLE: 'Bot idle. You may start it.',
     BOT_LOADING: 'Bot loading.',
@@ -100,6 +102,27 @@ class CoCBot {
             } else
             if ('false' === body) {
                 text = MESSAGES.BOT_STOPPED_FAILED;
+            }
+
+            callback(text);
+        }).catch(() => {
+            callback(MESSAGES.BOT_FAILED);
+        });
+    }
+
+
+    close(callback) {
+        let text = MESSAGES.BOT_UNKNOWN_ERR;
+        callback('Closing...');
+
+        this._send('close').then(body => {
+            body = this._cleanResponse(body);
+
+            if ('true' === body) {
+                text = MESSAGES.BOT_CLOSED;
+            } else
+            if ('false' === body) {
+                text = MESSAGES.BOT_CLOSED_FAILED;
             }
 
             callback(text);
