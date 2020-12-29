@@ -32,7 +32,12 @@ class URLtoImage {
         // TODO, handle diffrently images, .jpg, .png wget them directly instead of using web browser.
         console.log('Downloading url... ' + url);
 
-        return new Pageres({delay: 2})
+        return new Pageres({
+                delay: 2,
+                launchOptions: { 
+                    args: ['--no-sandbox', '--disable-setuid-sandbox']
+                }
+            })
             .src(url, ['750x1334'])
             .dest(tmp)
             .run()
