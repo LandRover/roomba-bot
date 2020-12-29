@@ -36,9 +36,11 @@ class URLtoImage {
                 delay: 2,
                 launchOptions: { 
                     args: ['--no-sandbox', '--disable-setuid-sandbox']
-                }
+                },
+                scale: 0.5,
+                format: 'jpg'
             })
-            .src(url, ['1920x1080'], { crop: true })
+            .src(url, ['750x1334'])
             .dest(tmp)
             .run()
             .then((stream) => {
