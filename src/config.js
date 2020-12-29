@@ -15,7 +15,7 @@ module.exports = {
                 launchOptions: {
                     args: ['--no-sandbox', '--disable-setuid-sandbox']
                 },
-                userAgent: 'Mozilla/5.0 (iPad; CPU OS 11_0 like Mac OS X) AppleWebKit/604.1.34 (KHTML, like Gecko) Version/11.0 Mobile/15A5341f Safari/604.1',
+                userAgent: 'Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/604.1.11 Mobile Safari/537.36 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)',
                 scale: 1,
                 format: 'jpg',
             }
