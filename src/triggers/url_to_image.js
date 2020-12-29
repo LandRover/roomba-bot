@@ -1,6 +1,7 @@
 'use strict';
 
 let config = require('../config'),
+    fs = require('fs'),
     ignoreURLs = [
         'whatsapp'
     ];
@@ -37,6 +38,7 @@ class URLtoImage {
                 launchOptions: { 
                     args: ['--no-sandbox', '--disable-setuid-sandbox']
                 },
+                userAgent: '',
                 scale: 0.5,
                 format: 'jpg'
             })
@@ -47,7 +49,7 @@ class URLtoImage {
                 let fileName = stream[0].filename;
                 console.log('Downloading complete... ' + url + ' Sending back '+ fileName);
 
-                return tmp +'/'+ fileName;
+                return fs.readFileSync(tmp + '/' + fileName);
             });
     }
 }
