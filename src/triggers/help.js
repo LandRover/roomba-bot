@@ -7,8 +7,8 @@ class Help {
     }
 
 
-    execute(callback) {
-        return callback(this.getHelpText());
+    async execute() {
+        return this.getHelpText();
     }
 
 

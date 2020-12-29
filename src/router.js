@@ -1,5 +1,9 @@
 'use strict';
 
+const {
+    MessageType,
+} = require("@adiwajshing/baileys");
+
 let Trigger = require('./trigger'),
     Help = require('./triggers/help'),
     PostIL = require('./triggers/postil'),
@@ -9,8 +13,8 @@ let Trigger = require('./trigger'),
     CoCBot = require('./triggers/coc_bot');
 
 class Router {
-    constructor(yowsup) {
-        this.yowsup = yowsup;
+    constructor(wa) {
+        this.wa = wa;
 
         this.triggers = [];
         this.bindTriggers();
@@ -31,38 +35,51 @@ class Router {
     }
 
 
-    dispatch(message) {
+    dispatch(id, message) {
         let matchText;
 
-        console.log(['MSG IN ', message]);
+        console.log(['MSG IN ', id, message]);
 
         this.triggers.forEach(trigger => {
             matchText = trigger.match(message);
 
             if (null !== matchText)
-                this.run(trigger, message, matchText);
+                this.run(trigger, id, message, matchText);
         });
     }
 
 
 
-    run(trigger, message, matchText) {
-        let to = (null === message.to) ? message.from : message.to,
-            triggeredActionInstance = trigger.getInstance(matchText);
+    async run(trigger, id, message, matchText) {
+        let triggeredActionInstance = trigger.getInstance(matchText);
 
         switch(triggeredActionInstance.action) {
             case 'SAY':
-                triggeredActionInstance.execute(text => {
-                    this.yowsup.send().say(to, text);
+                triggeredActionInstance.execute().then(text => {
+                    this.wa.sendMessage(id, text, MessageType.text);
                 });
 
                 break;
 
 
             case 'IMAGE':
-                triggeredActionInstance.execute((path, url) => {
-                    this.yowsup.send().image(to, path, url);
-                });
+                triggeredActionInstance.execute()
+                    .then((buffer) => {
+                        console.log(['DONEEEEE', buffer]);
+                        this.wa.sendMessage(id, buffer, MessageType.image);
+                    }).catch(err => {
+                        switch (err) {
+                            case 'nothing found':
+                                this.wa.sendMessage(id, 'nothing found.. sry', MessageType.text);
+                                console.error(['ERROR', 'nothing found']);
+                                break;
+                            default:
+                                console.error(['ERROR', err, 'retry....']);
+
+                                return this.run(trigger, id, message, matchText);
+                        }
+
+                    });
 
                 break;
         }

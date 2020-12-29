@@ -1,95 +1,118 @@
 'use strict';
 
-let config = require('../config');
-const googleImagesSearch = require('google-images');
+const config = require('../config');
+const GoogleImages = require('image-search-google');
 
-let fs = require('fs'),
-    md5 = require('MD5'),
-    wget = require('wget-improved'),
-    cache = require('../utils/cache');
+const fs = require('fs'),
+      crypto = require('crypto'),
+      wget = require('wget-improved'),
+      cache = require('../utils/cache');
 
-class GoogleImages {
+class GoogleImagesAPI {
     constructor(message) {
         this.cachePrefix = 'IMAGES_';
         this.action = 'IMAGE';
         this.type = 'all';
-        this.message = message[1];
+        this.keyword = message[1];
+
+        this.google = new GoogleImages(config.google.CSE, config.google.apiKey);
     }
 
 
     getFirstShuffle(list) {
         let shuffledList = this.shuffle(list.splice(0, 10));
+
         return shuffledList[0];
     }
 
 
     getKey() {
-        return this.cachePrefix + this.message;
+        return this.cachePrefix + this.keyword;
     }
 
 
-    handleImages(images, callback) {
-        let image = this.getFirstShuffle(images).url;
-
-        if (image)
-            this.getImage(image, callback);
-    }
-
-
-    search(callback) {
-        let google = googleImagesSearch(config.google.CSE, config.google.apiKey),
-            getCachedQuery = cache.get(this.getKey());
-
-        if (undefined !== getCachedQuery) {
-            this.handleImages(getCachedQuery, callback);
+    async handleImages(images) {
+        if (0 >= images.length) {
+            
+            throw('nothing found');
 
             return;
         }
 
-        google.search(this.message).then(images => {
-            cache.set(this.getKey(), images, () => {
-                this.handleImages(images, callback);
+        let url = this.getFirstShuffle(images).url,
+            imgBuffer = null;
+        
+        if (url) {
+            let imgPath = await this.getImage(url);
+            imgBuffer = fs.readFileSync(imgPath);
+        }
+        
+        return imgBuffer;
+    }
+
+
+    async search() {
+        let getCachedQuery = cache.get(this.getKey());
+
+        if (undefined !== getCachedQuery) {
+            return await this.handleImages(getCachedQuery);
+        }
+
+        return this.google
+            .search(this.keyword)
+            .then(async images => {
+                cache.set(this.getKey(), images);
+                return await this.handleImages(images);
             });
-        });
     }
 
-    getImage(image, callback) {
+
+    async getImage(url) {
+        console.log(['INPUT URL', url]);
         let tmp = config.tmp.dir,
-            fileMD5 = md5(image),
-            suffix = image.match(/\.(png|jpg|jpeg|gif|bmp)/),
-            fileName = fileMD5 + suffix[0];
+            fileMD5 = crypto.createHash('md5').update(url).digest('hex'),
+            fileName = fileMD5;
 
-        console.log('Downloading image... ' + image +'to: '+ fileName);
+        console.log('Downloading image... ' + url + 'to: '+ fileName);
 
-        this.download(image, tmp +'/'+ fileName, () => {
-            console.log('Downloaded image... ' + image + ' Sending back '+ fileName);
+        return new Promise(async (resolve, reject) => {
+            let tempImgPath = await this.download(url, tmp + '/' + fileName)
+                .then(() => {
+                    console.log('Downloaded image... ' + url + ' Sending back ' + fileName);
 
+                    return tmp + '/' + fileName;
+                })
+                .catch((err) => reject(err));
+
+        
             setTimeout(() => {
-                callback(tmp +'/'+ fileName);
+                resolve(tempImgPath);
             }, 500);
-          });
+        });
     }
 
 
-    execute(callback) {
-        return this.search(callback);
+    async execute() {
+        return await this.search();
     }
 
 
-    download(uri, filename, callback) {
-        console.log([uri, filename, callback]);
+    async download(uri, filename) {
+        console.log([uri, filename]);
 
-        let dl = wget.download(uri, filename, {});
+        return new Promise((resolve, reject) => {
+            let dl = wget.download(uri, filename, {});
 
-        dl.on('error', err => {
-            callback(err);
-        });
+            dl.on('end', output => {
+                resolve(output);
+            });
 
-        dl.on('end', output => {
-            callback(output);
-        });
+            dl.on('error', err => {
+                reject(err);
+            });
 
-        dl.on('progress', progress => {
+            dl.on('progress', (progress) => {
+            });
         });
     }
 
@@ -101,4 +124,4 @@ class GoogleImages {
     }
 }
 
-module.exports = GoogleImages;
+module.exports = GoogleImagesAPI;

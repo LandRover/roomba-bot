@@ -15,7 +15,7 @@ class URLtoImage {
     }
 
 
-    execute(callback) {
+    async execute() {
         let tmp = config.tmp.dir,
             url = this.url,
             ignorePattern;
@@ -30,10 +30,9 @@ class URLtoImage {
         }
 
         // TODO, handle diffrently images, .jpg, .png wget them directly instead of using web browser.
-
         console.log('Downloading url... ' + url);
 
-        let pageres = new Pageres({delay: 2})
+        return new Pageres({delay: 2})
             .src(url, ['750x1334'])
             .dest(tmp)
             .run()
@@ -41,7 +40,7 @@ class URLtoImage {
                 let fileName = stream[0].filename;
                 console.log('Downloading complete... ' + url + ' Sending back '+ fileName);
 
-                callback(tmp +'/'+ fileName);
+                return tmp +'/'+ fileName;
             });
     }
 }

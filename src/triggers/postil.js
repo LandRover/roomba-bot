@@ -3,18 +3,18 @@
 const PostILStatus = require('postil-status');
 
 class PostIL {
-    constructor(trackingID) {
+    constructor(message) {
         this.action = 'SAY';
         this.type = 'all';
         this.trackingID = [
-                trackingID[1], // XX
-                trackingID[2], // 123456789
-                trackingID[3]  // XX
-            ].join('');
+            message[1], // XX
+            message[2], // 123456789
+            message[3]  // XX
+        ].join('');
     }
 
 
-    execute(callback) {
+    async execute() {
         console.log(this.trackingID);
 
 

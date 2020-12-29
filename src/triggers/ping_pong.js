@@ -7,10 +7,10 @@ class RepeatText {
         this.message = message[0];
     }
 
-    execute(callback) {
+    async execute() {
         this.message = 'Pong!';
 
-        return callback(this.message);
+        return this.message;
     }
 }
 

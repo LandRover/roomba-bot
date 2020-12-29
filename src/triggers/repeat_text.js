@@ -4,11 +4,11 @@ class RepeatText {
     constructor(message) {
         this.action = 'SAY';
         this.type = 'all';
-        this.message = message[1];
+        this.text = message[1];
     }
 
-    execute(callback) {
-        return callback(this.message);
+    async execute() {
+        return this.text;
     }
 }
 

@@ -1,23 +1,22 @@
 {
   "name": "roomba-bot",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Roomba - The bot",
   "main": "index.js",
   "dependencies": {
-    "MD5": "^1.3.0",
-    "dotenv": "^1.2.0",
-    "google-images": "^1.0.0",
-    "node-cache": "^3.0.1",
-    "pageres": "^3.0.2",
+    "@adiwajshing/baileys": "^3.3.2",
+    "dotenv": "^8.2.0",
+    "image-search-google": "^1.3.0",
+    "node-cache": "^5.1.2",
+    "pageres": "^6.1.0",
     "postil-status": "^0.1.2",
     "request-promise": "^2.0.1",
-    "wget-improved": "^1.2.1",
-    "winston": "^2.1.1",
-    "yowjs": "^0.3.4"
+    "wget-improved": "^3.2.1",
+    "winston": "^3.3.3"
   },
   "devDependencies": {},
   "scripts": {
-    "test": "mocha test/*",
+    "test": "jest test/*",
     "postinstall": "LC_ALL=C"
   },
   "keywords": [

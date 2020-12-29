@@ -142,12 +142,12 @@ class CoCBot {
     }
 
 
-    execute(callback) {
+    async execute() {
         if ('function' === typeof this[this.cocAction]) {
-            return this[this.cocAction](callback);
+            return await this[this.cocAction](callback);
         }
 
-        callback('404 ' + this.cocAction);
+        return '404 ' + this.cocAction;
     }
 
 

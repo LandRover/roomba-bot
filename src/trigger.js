@@ -17,8 +17,8 @@ class Trigger {
     }
 
 
-    match(message) {
-        return this.matchPattern(message.text);
+    match(text) {
+        return this.matchPattern(text);
     }
 
 
