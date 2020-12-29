@@ -38,7 +38,7 @@ class URLtoImage {
                     args: ['--no-sandbox', '--disable-setuid-sandbox']
                 }
             })
-            .src(url, ['750x1334'])
+            .src(url, ['750x1334'], { crop: true })
             .dest(tmp)
             .run()
             .then((stream) => {
