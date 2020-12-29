@@ -5,7 +5,7 @@ module.exports = {
 
     google: {
         CSE: process.env.CSE || null,
-        apiKey: process.env.API_KEY || null,
+        apiKey: process.env.GOOGLE_API_KEY || null,
     },
 
     triggers: {
