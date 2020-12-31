@@ -8,6 +8,7 @@ let Trigger = require('./trigger'),
     Help = require('./triggers/help'),
     PostIL = require('./triggers/postil'),
     DNS = require('./triggers/dns'),
+    About = require('./triggers/about'),
     URLtoImage = require('./triggers/url_to_image'),
     GoogleImages = require('./triggers/google_images'),
     GoogleYoutube = require('./triggers/google_youtube'),
@@ -26,6 +27,8 @@ class Router {
     bindTriggers() {
         this.triggers.push(
             new Trigger(/@help/i, Help), // Help
+            new Trigger(/@about/i, About), // Help
+            
             new Trigger(/@ping/i, PingPong), // ping pong, check bot up.
             new Trigger(/@i (.*)/i, GoogleImages), // search images.
             new Trigger(/@ip (.*)/i, DNS), // search images.
