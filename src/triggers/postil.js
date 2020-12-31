@@ -17,10 +17,9 @@ class PostIL {
     async execute() {
         console.log(this.trackingID);
 
-
         let postil = new PostILStatus({language: 'HE'}, {log: () => {}});
-        postil.getStatus(this.trackingID).then(packageModel => {
-            callback(packageModel.getDescription());
+        return await postil.getStatus(this.trackingID).then(packageModel => {
+            return packageModel.getDescription();
         });
     }
 }

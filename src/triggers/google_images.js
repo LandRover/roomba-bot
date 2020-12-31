@@ -1,5 +1,8 @@
 'use strict';
 
+// RAW API: https://www.googleapis.com/customsearch/v1?searchType=image&key={API_KEY}&cx={CSE}&q={keyword_here}
+// DOCS: https://developers.google.com/custom-search/docs/xml_results#chineseSearch
+
 const config = require('../config');
 const GoogleImages = require('image-search-google');
 

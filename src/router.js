@@ -7,8 +7,10 @@ const {
 let Trigger = require('./trigger'),
     Help = require('./triggers/help'),
     PostIL = require('./triggers/postil'),
+    DNS = require('./triggers/dns'),
     URLtoImage = require('./triggers/url_to_image'),
     GoogleImages = require('./triggers/google_images'),
+    GoogleYoutube = require('./triggers/google_youtube'),
     PingPong = require('./triggers/ping_pong'),
     CoCBot = require('./triggers/coc_bot');
 
@@ -26,7 +28,9 @@ class Router {
             new Trigger(/@help/i, Help), // Help
             new Trigger(/@ping/i, PingPong), // ping pong, check bot up.
             new Trigger(/@i (.*)/i, GoogleImages), // search images.
+            new Trigger(/@ip (.*)/i, DNS), // search images.
             new Trigger(/.*([A-Za-z]{2})([0-9]{9})([A-Za-z]{2}).*/i, PostIL), // PostIL checker
+            new Trigger(/(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/, GoogleYoutube),
             new Trigger(/(https?:\/\/[^\s]+)/gi, URLtoImage), // image downloader
             new Trigger(/@c (.*)/i, CoCBot) // clash bot
         );
@@ -40,12 +44,17 @@ class Router {
 
         console.log(['MSG IN ', id, message]);
 
-        this.triggers.forEach(trigger => {
+        for (let i = 0, len = this.triggers.length; i < len; i++) {
+            let trigger = this.triggers[i];
+
             matchText = trigger.match(message);
 
-            if (null !== matchText)
+            if (null !== matchText) {
                 this.run(trigger, id, message, matchText);
-        });
+                break;
+            }
+        }
+
     }
 
 
