@@ -13,7 +13,7 @@ class Quotes {
 
 
     async execute() {
-        return this.getText();
+        return await this.getText();
     }
 
 

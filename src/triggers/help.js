@@ -24,9 +24,10 @@ class Help {
             ' 2. @ping',
             ' 3. @mute/unmute',
             ' 4. @dns',
-            ' 5. @quote',
-            ' 6. @about',
-            ' 7. @help',
+            ' 5. @glz',
+            ' 6. @quote',
+            ' 7. @about',
+            ' 8. @help',
             '\uD83D\uDCD5'
         ].join("\r\n");
     }
