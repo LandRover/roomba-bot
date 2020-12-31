@@ -9,6 +9,7 @@ let Trigger = require('./trigger'),
     PostIL = require('./triggers/postil'),
     DNS = require('./triggers/dns'),
     About = require('./triggers/about'),
+    Quotes = require('./triggers/quotes'),
     URLtoImage = require('./triggers/url_to_image'),
     GoogleImages = require('./triggers/google_images'),
     GoogleYoutube = require('./triggers/google_youtube'),
@@ -28,8 +29,8 @@ class Router {
         this.triggers.push(
             new Trigger(/@help/i, Help), // Help
             new Trigger(/@about/i, About), // Help
-            
             new Trigger(/@ping/i, PingPong), // ping pong, check bot up.
+            new Trigger(/@quote/i, Quotes), // ping pong, check bot up.
             new Trigger(/@i (.*)/i, GoogleImages), // search images.
             new Trigger(/@ip (.*)/i, DNS), // search images.
             new Trigger(/.*(([A-Za-z]{2})([0-9]{9})([A-Za-z]{2})|([A-Za-z]{2})([0-9]{10})([A-Za-z]{1})|([0-9]{13})).*/i, PostIL), // PostIL checker
