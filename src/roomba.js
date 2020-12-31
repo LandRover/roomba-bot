@@ -1,5 +1,7 @@
 'use strict';
 
+const qrcode = require("qrcode-terminal");
+
 const config = require('./config'),
       Logger = require('./utils/logger'),
       Router = require('./router'),
@@ -46,25 +48,29 @@ class Roomba {
         fs.existsSync('./session.json') && this.wa.loadAuthInfo('./session.json');
 
         this.wa.connect();
+        
 
         this.wa.on('user-presence-update', json => console.log(json.id + ' presence is ' + json.type));
+
 
         this.wa.on('message-status-update', json => {
             const participant = json.participant ? ' (' + json.participant + ')' : '' // participant exists when the message is from a group
             console.log(`${json.to}${participant} acknlowledged message(s) ${json.ids} as ${json.type}`)
-        })
+        });
+
 
         this.wa.on('message-new', async (m) => {
-            const messageContent = m.message
-            const text = m.message.conversation
+            const messageContent = m.message;
+
+            if (!messageContent) return; // if there is no text or media message
             
-            let id = m.key.remoteJid
-            const messageType = Object.keys(messageContent)[0] // message will always contain one key signifying what kind of message
+            const text = messageContent.conversation
+            const messageType = Object.keys(messageContent)[0]; // get what type of message it is -- text, image, video
 
-            let imageMessage = m.message.imageMessage;
-            console.log(`[ ${Date.now()} ] (${id.split("@s.whatsapp.net")[0]} => ${text}`);
+            let senderID = m.key.remoteJid;
+            console.log(`[ ${Date.now()} ] (${senderID.split("@s.whatsapp.net")[0]} => ${text}`);
 
-            route.dispatch(id, text);
+            route.dispatch(senderID, text);
         });
 
         return this;
