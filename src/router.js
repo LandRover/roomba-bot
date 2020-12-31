@@ -29,7 +29,7 @@ class Router {
             new Trigger(/@ping/i, PingPong), // ping pong, check bot up.
             new Trigger(/@i (.*)/i, GoogleImages), // search images.
             new Trigger(/@ip (.*)/i, DNS), // search images.
-            new Trigger(/.*([A-Za-z]{2})([0-9]{9})([A-Za-z]{2}).*/i, PostIL), // PostIL checker
+            new Trigger(/.*(([A-Za-z]{2})([0-9]{9})([A-Za-z]{2})|([A-Za-z]{2})([0-9]{10})([A-Za-z]{1})|([0-9]{13})).*/i, PostIL), // PostIL checker
             new Trigger(/(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/, GoogleYoutube),
             new Trigger(/(https?:\/\/[^\s]+)/gi, URLtoImage), // image downloader
             new Trigger(/@c (.*)/i, CoCBot) // clash bot
